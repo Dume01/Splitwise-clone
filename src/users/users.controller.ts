@@ -9,14 +9,15 @@ import {
   Query,
 } from '@nestjs/common';
 import type { User } from 'src/models';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor() {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post('register')
   createUser(@Body() user: User) {
-    // call service to register user
+    return this.usersService.createUser(user);
   }
 
   @Post('login')
@@ -31,7 +32,7 @@ export class UsersController {
 
   @Get(':username')
   getUserByUsername(@Param('username') username: string) {
-    // call service to get user by username
+    return this.usersService.getUserByUsername(username);
   }
 
   // Friend Request Management
